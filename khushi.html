@@ -3,50 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Musical Surprise for Khushi!</title>
+    <title>Birthday Magic for Khushi!</title>
     <style>
-        body { margin: 0; padding: 0; background: #0f0c29; background: linear-gradient(to bottom, #24243e, #302b63, #0f0c29); height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; font-family: 'Arial', sans-serif; }
+        body { margin: 0; padding: 0; background: #0b0d17; color: white; height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; font-family: 'Arial', sans-serif; }
         #gift-container { text-align: center; cursor: pointer; }
         .box { font-size: 100px; animation: bounce 1.5s infinite; display: block; }
-        .tap-text { color: #fff; margin-top: 20px; font-size: 1.2rem; animation: blink 1s infinite; }
-        @keyframes bounce { 0%, 100% { transform: scale(1) translateY(0); } 50% { transform: scale(1.1) translateY(-20px); } }
+        .tap-text { margin-top: 20px; font-size: 1.2rem; letter-spacing: 2px; animation: blink 1s infinite; color: #ff9a9e; }
+        @keyframes bounce { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1) translateY(-15px); } }
         @keyframes blink { 50% { opacity: 0.3; } }
-        #card { display: none; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px); padding: 30px 20px; border-radius: 25px; border: 1px solid rgba(255, 255, 255, 0.2); text-align: center; width: 85%; box-shadow: 0 15px 35px rgba(0,0,0,0.5); animation: zoomIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        @keyframes zoomIn { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
-        h1 { color: #ff9a9e; font-size: 2rem; text-shadow: 0 0 10px #ff9a9e; margin: 10px 0; }
-        p { color: #ffffff; font-size: 1.1rem; line-height: 1.6; }
-        .music-btn { background: #ff4d4d; color: white; border: none; padding: 12px 25px; border-radius: 50px; font-size: 1rem; margin-top: 20px; cursor: pointer; box-shadow: 0 0 15px #ff4d4d; font-weight: bold; }
-        .heart { position: absolute; color: rgba(255, 105, 180, 0.6); font-size: 20px; animation: move 5s linear infinite; bottom: -50px; z-index: -1; }
-        @keyframes move { to { transform: translateY(-110vh) rotate(360deg); opacity: 0; } }
+        #card { display: none; width: 85%; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); border-radius: 30px; border: 1px solid rgba(255,255,255,0.2); padding: 30px 15px; text-align: center; box-shadow: 0 0 40px rgba(0,0,0,0.8); animation: fadeIn 1s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+        .cake { font-size: 70px; margin-bottom: 10px; cursor: pointer; transition: 0.3s; }
+        .cake:active { transform: scale(1.3); }
+        h1 { color: #ff9a9e; font-size: 2rem; text-shadow: 0 0 10px #ff9a9e; margin-bottom: 5px; }
+        .friendship-tag { display: inline-block; background: #ff4d4d; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-bottom: 20px; }
+        .quote-box { height: 60px; font-style: italic; color: #f1c40f; margin: 15px 0; font-size: 1.1rem; }
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
+        .stat { background: rgba(255,255,255,0.1); padding: 10px; border-radius: 15px; font-size: 0.8rem; }
+        .music-btn { background: #ff4d4d; border: none; padding: 12px 25px; color: white; border-radius: 50px; font-weight: bold; margin-top: 10px; box-shadow: 0 0 15px rgba(255,77,77,0.5); }
+        .floating { position: absolute; pointer-events: none; animation: floatUp 4s linear infinite; bottom: -50px; z-index: -1; }
+        @keyframes floatUp { to { transform: translateY(-110vh) rotate(360deg); opacity: 0; } }
     </style>
 </head>
-<body>
+<body onclick="createSparkle(event)">
     <div id="gift-container" onclick="openGift()">
         <span class="box">🎁</span>
-        <div class="tap-text">KHUSHI, TAP TO OPEN!</div>
+        <div class="tap-text">KHUSHI, OPEN YOUR SURPRISE!</div>
     </div>
     <div id="card">
-        <span style="font-size: 50px;">🎂</span>
-        <h1>Happy Birthday, Khushi!</h1> 
-        <p>Wishing you a day filled with laughter and endless "Khushi"! You are an amazing friend and deserve all the magic in the world.</p>
-        <button class="music-btn" onclick="playMusic()">🎵 Play Birthday Song 🎵</button>
-        <p style="color: #f1c40f; font-weight: bold; margin-top: 15px;">✨ Stay Blessed Always! ✨</p>
+        <div class="cake" onclick="blowCandle()">🎂</div>
+        <div class="friendship-tag">BEST FRIEND LEVEL: MAX 🏆</div>
+        <h1>Happy Birthday, Khushi!</h1>
+        <div class="quote-box" id="quotes">"To the most amazing person I know!"</div>
+        <div class="stats-grid">
+            <div class="stat"><b>Secrets:</b> 100% Safe</div>
+            <div class="stat"><b>Joy:</b> Unlimited</div>
+            <div class="stat"><b>Vibes:</b> 10/10</div>
+            <div class="stat"><b>Friendship:</b> Forever</div>
+        </div>
+        <button class="music-btn" onclick="playMusic()">🎵 PLAY BIRTHDAY BEATS 🎵</button>
     </div>
-    <audio id="birthday-song" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="song" loop><source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
     <script>
-        function openGift() { document.getElementById('gift-container').style.display = 'none'; document.getElementById('card').style.display = 'block'; setInterval(createHeart, 250); }
-        function playMusic() { document.getElementById('birthday-song').play(); }
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            heart.innerHTML = '❤️';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
-            document.body.appendChild(heart);
-            setTimeout(() => { heart.remove(); }, 5000);
-        }
+        const quotes = ["You're a star, Khushi! ✨", "Wishing you 100% happiness! 🍰", "You deserve the whole world! 🌌", "Stay blessed always! ❤️"];
+        let qIdx = 0;
+        function openGift() { document.getElementById('gift-container').style.display = 'none'; document.getElementById('card').style.display = 'block'; setInterval(createFloating, 300); setInterval(() => { qIdx = (qIdx + 1) % quotes.length; document.getElementById('quotes').innerText = quotes[qIdx]; }, 3000); }
+        function playMusic() { document.getElementById('song').play(); }
+        function blowCandle() { alert("Make a wish, Khushi! 🌠"); }
+        function createFloating() { const el = document.createElement('div'); el.classList.add('floating'); el.innerHTML = '❤️'; el.style.left = Math.random() * 100 + 'vw'; el.style.animationDuration = (Math.random() * 2 + 3) + 's'; document.body.appendChild(el); setTimeout(() => el.remove(), 5000); }
+        function createSparkle(e) { const s = document.createElement('div'); s.innerHTML = '✨'; s.style.position = 'absolute'; s.style.left = e.pageX + 'px'; s.style.top = e.pageY + 'px'; s.style.pointerEvents = 'none'; document.body.appendChild(s); setTimeout(() => s.remove(), 6000); }
     </script>
 </body>
 </html>
