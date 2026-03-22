@@ -3,50 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>For Nidhi ✨</title>
+    <title>A Celestial Wish for Nidhi ✨</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
-        body { margin: 0; background: #000; color: white; height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; font-family: sans-serif; }
-        .holder { text-align: center; cursor: pointer; -webkit-tap-highlight-color: transparent; }
-        .wish-icon { font-size: 80px; filter: drop-shadow(0 0 20px gold); animation: pulse 2s infinite; }
-        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
-        .instruction { margin-top: 25px; color: gold; font-weight: bold; animation: blink 1.5s infinite; letter-spacing: 2px; }
-        @keyframes blink { 50% { opacity: 0.3; } }
-        #card { display: none; width: 85%; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(25px); border-radius: 25px; padding: 30px 15px; text-align: center; border: 1px solid gold; animation: crystallize 1s ease-out; }
-        @keyframes crystallize { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        h1 { font-family: 'Dancing Script', cursive; color: gold; font-size: 2.5rem; }
-        .btn { background: gold; border: none; padding: 15px; color: black; border-radius: 50px; width: 100%; font-weight: bold; margin-top: 20px; }
-        .star { position: absolute; bottom: -50px; animation: fly 5s linear infinite; }
-        @keyframes fly { to { transform: translateY(-110vh); opacity: 0; } }
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&display=swap');
+        
+        body { margin: 0; background: #00050a; color: white; height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; font-family: 'Poppins', sans-serif; }
+        
+        /* Initial Unlock Screen */
+        #audio-unlocker { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, #001f3f 0%, #000 100%); z-index: 100; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; }
+        .magic-btn { background: linear-gradient(45deg, #f1c40f, #d4af37); color: #000; border: none; padding: 20px 40px; border-radius: 50px; font-weight: bold; font-size: 1.1rem; cursor: pointer; box-shadow: 0 0 30px rgba(241, 196, 15, 0.5); text-transform: uppercase; letter-spacing: 1px; }
+
+        /* Main Game Stage */
+        #game-stage { display: none; text-align: center; }
+        .star-icon { font-size: 90px; filter: drop-shadow(0 0 20px gold); animation: float 3s ease-in-out infinite; cursor: pointer; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        .instruction { margin-top: 30px; color: #f1c40f; font-weight: 300; letter-spacing: 3px; animation: blink 1.5s infinite; }
+        @keyframes blink { 50% { opacity: 0.2; } }
+
+        /* The Luxury Glass Card */
+        #nidhi-card { 
+            display: none; width: 85%; max-width: 400px; padding: 35px 20px; border-radius: 40px;
+            background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(25px);
+            border: 1px solid rgba(241, 196, 15, 0.3); text-align: center;
+            box-shadow: 0 0 50px rgba(241, 196, 15, 0.1);
+            animation: crystallize 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes crystallize { from { transform: scale(0.5) rotateY(90deg); opacity: 0; } to { transform: scale(1) rotateY(0); opacity: 1; } }
+
+        h1 { font-family: 'Dancing Script', cursive; font-size: 3rem; color: #f1c40f; margin: 0; text-shadow: 0 0 20px rgba(241, 196, 15, 0.6); }
+        .sub-text { font-size: 1.1rem; color: #fff; margin-top: 15px; font-style: italic; opacity: 0.9; }
+
+        /* Floating Stars */
+        .sparkle { position: absolute; pointer-events: none; animation: rise 4s linear forwards; }
+        @keyframes rise { to { transform: translateY(-110vh) rotate(360deg); opacity: 0; } }
     </style>
 </head>
 <body>
-    <div id="start" class="holder" onclick="initNidhi()">
-        <div class="wish-icon">💫</div>
-        <div class="instruction">NIDHI, TAP TO MAKE A WISH! 🌟</div>
+
+    <div id="audio-unlocker">
+        <h2 style="color: #f1c40f; letter-spacing: 2px;">A GIFT FOR NIDHI</h2>
+        <p style="margin-bottom: 30px; opacity: 0.8;">Tap to enter her world of magic...</p>
+        <button class="magic-btn" onclick="startExperience()">✨ Open Surprise ✨</button>
     </div>
-    <div id="card">
+
+    <div id="game-stage">
+        <div class="star-icon" onclick="showWish()">💫</div>
+        <div class="instruction">NIDHI, TAP THE STAR<br>TO MAKE YOUR WISH</div>
+    </div>
+
+    <div id="nidhi-card">
+        <span style="font-size: 40px;">🎂🌟🎂</span>
         <h1>Happy Birthday, Nidhi!</h1>
-        <p>May your dreams take flight today!</p>
-        <button class="btn" onclick="togglePlay()">🎵 PAUSE / PLAY MUSIC 🎵</button>
+        <p class="sub-text">"Wishing you a year that sparkles with success and glows with happiness. You are truly one in a billion!"</p>
+        <div style="margin-top: 25px; font-size: 0.8rem; color: #f1c40f; border: 1px solid #f1c40f; display: inline-block; padding: 5px 15px; border-radius: 20px;">
+            🔊 MUSIC PLAYING
+        </div>
     </div>
-    <audio id="song" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
+
+    <audio id="bdaySong" loop preload="auto">
+        <source src="https://cdn.pixabay.com/audio/2022/11/22/audio_feb6312693.mp3" type="audio/mpeg">
     </audio>
+
     <script>
-        const a = document.getElementById('song');
-        function initNidhi() {
-            a.play().catch(e => console.log("Blocked"));
-            document.getElementById('start').style.display = 'none';
-            document.getElementById('card').style.display = 'block';
-            setInterval(spawn, 400);
+        const song = document.getElementById('bdaySong');
+
+        function startExperience() {
+            // Unlocks audio for mobile browsers
+            song.play().then(() => {
+                document.getElementById('audio-unlocker').style.display = 'none';
+                document.getElementById('game-stage').style.display = 'block';
+            }).catch(() => {
+                // Fail-safe if play fails
+                document.getElementById('audio-unlocker').style.display = 'none';
+                document.getElementById('game-stage').style.display = 'block';
+            });
         }
-        function togglePlay() { a.paused ? a.play() : a.pause(); }
-        function spawn() {
-            const b = document.createElement('div'); b.className='star';
-            b.innerHTML = ['✨','🌟','💫'][Math.floor(Math.random()*3)];
-            b.style.left = Math.random()*100+'vw'; b.style.fontSize = '20px';
-            document.body.appendChild(b); setTimeout(()=>b.remove(), 5000);
+
+        function showWish() {
+            document.getElementById('game-stage').style.display = 'none';
+            document.getElementById('nidhi-card').style.display = 'block';
+            song.play(); // Play song
+            
+            // Start the golden star rain
+            setInterval(() => {
+                const s = document.createElement('div');
+                s.className = 'sparkle';
+                s.innerHTML = ['✨','🌟','💫','💛'][Math.floor(Math.random()*4)];
+                s.style.left = Math.random() * 100 + 'vw';
+                s.style.bottom = '-50px';
+                s.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                s.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                document.body.appendChild(s);
+                setTimeout(() => s.remove(), 5000);
+            }, 300);
         }
     </script>
 </body>
