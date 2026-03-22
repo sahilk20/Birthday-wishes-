@@ -3,50 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Musical Surprise for Nidhi!</title>
+    <title>Birthday Magic for Nidhi!</title>
     <style>
-        body { margin: 0; padding: 0; background: #0f0c29; background: linear-gradient(to bottom, #24243e, #302b63, #0f0c29); height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; font-family: 'Arial', sans-serif; }
-        #gift-container { text-align: center; cursor: pointer; }
+        body { margin: 0; padding: 0; background: #0b0d17; color: white; height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; font-family: 'Arial', sans-serif; }
+        #gift-container { text-align: center; cursor: pointer; z-index: 10; }
         .box { font-size: 100px; animation: bounce 1.5s infinite; display: block; }
-        .tap-text { color: #fff; margin-top: 20px; font-size: 1.2rem; animation: blink 1s infinite; }
-        @keyframes bounce { 0%, 100% { transform: scale(1) translateY(0); } 50% { transform: scale(1.1) translateY(-20px); } }
+        .tap-text { margin-top: 20px; font-size: 1.2rem; letter-spacing: 2px; animation: blink 1s infinite; color: #a1c4fd; }
+        @keyframes bounce { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1) translateY(-15px); } }
         @keyframes blink { 50% { opacity: 0.3; } }
-        #card { display: none; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px); padding: 30px 20px; border-radius: 25px; border: 1px solid rgba(255, 255, 255, 0.2); text-align: center; width: 85%; box-shadow: 0 15px 35px rgba(0,0,0,0.5); animation: zoomIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        @keyframes zoomIn { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
-        h1 { color: #a1c4fd; font-size: 2rem; text-shadow: 0 0 10px #a1c4fd; margin: 10px 0; }
-        p { color: #ffffff; font-size: 1.1rem; line-height: 1.6; }
-        .music-btn { background: #3498db; color: white; border: none; padding: 12px 25px; border-radius: 50px; font-size: 1rem; margin-top: 20px; cursor: pointer; box-shadow: 0 0 15px #3498db; font-weight: bold; }
-        .heart { position: absolute; color: rgba(161, 196, 253, 0.6); font-size: 20px; animation: move 5s linear infinite; bottom: -50px; z-index: -1; }
-        @keyframes move { to { transform: translateY(-110vh) rotate(360deg); opacity: 0; } }
+        #card { display: none; width: 85%; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); border-radius: 30px; border: 1px solid rgba(255,255,255,0.2); padding: 30px 15px; text-align: center; box-shadow: 0 0 40px rgba(0,0,0,0.8); animation: fadeIn 1s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+        .cake { font-size: 70px; margin-bottom: 10px; cursor: pointer; transition: 0.3s; }
+        .cake:active { transform: scale(1.3); }
+        h1 { color: #a1c4fd; font-size: 2rem; text-shadow: 0 0 10px #a1c4fd; margin-bottom: 5px; }
+        .friendship-tag { display: inline-block; background: #3498db; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-bottom: 20px; }
+        .quote-box { height: 60px; font-style: italic; color: #f1c40f; margin: 15px 0; font-size: 1.1rem; }
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
+        .stat { background: rgba(255,255,255,0.1); padding: 10px; border-radius: 15px; font-size: 0.8rem; }
+        .music-btn { background: #3498db; border: none; padding: 12px 25px; color: white; border-radius: 50px; font-weight: bold; margin-top: 10px; box-shadow: 0 0 15px rgba(52,152,219,0.5); cursor: pointer; }
+        .floating { position: absolute; pointer-events: none; animation: floatUp 4s linear infinite; bottom: -50px; z-index: -1; }
+        @keyframes floatUp { to { transform: translateY(-110vh) rotate(360deg); opacity: 0; } }
     </style>
 </head>
-<body>
+<body onclick="createSparkle(event)">
     <div id="gift-container" onclick="openGift()">
         <span class="box">🎁</span>
-        <div class="tap-text">NIDHI, TAP TO OPEN!</div>
+        <div class="tap-text">NIDHI, OPEN YOUR SURPRISE!</div>
     </div>
     <div id="card">
-        <span style="font-size: 50px;">🎂</span>
-        <h1>Happy Birthday, Nidhi!</h1> 
-        <p>To my sweet friend Nidhi, wishing you a year filled with success, joy, and all the things your heart desires. Thank you for being you!</p>
-        <button class="music-btn" onclick="playMusic()">🎵 Play Birthday Song 🎵</button>
-        <p style="color: #f1c40f; font-weight: bold; margin-top: 15px;">✨ You are special ✨</p>
+        <div class="cake" onclick="blowCandle()">🎂</div>
+        <div class="friendship-tag">MOST SPECIAL PERSON ✅</div>
+        <h1>Happy Birthday, Nidhi!</h1>
+        <div class="quote-box" id="quotes">"Wishing you a day as sweet as you are!"</div>
+        <div class="stats-grid">
+            <div class="stat"><b>Secrets:</b> 100% Kept</div>
+            <div class="stat"><b>Smiles:</b> Unlimited</div>
+            <div class="stat"><b>Care:</b> Infinite</div>
+            <div class="stat"><b>Friendship:</b> Pure Gold</div>
+        </div>
+        <button class="music-btn" onclick="playMusic()">🎵 PLAY BIRTHDAY MUSIC 🎵</button>
     </div>
-    <audio id="birthday-song" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
+    <audio id="song" preload="auto" loop>
+        <source src="https://www.chosic.com/wp-content/uploads/2021/04/Happy-Birthday-Funny-Song.mp3" type="audio/mpeg">
     </audio>
     <script>
-        function openGift() { document.getElementById('gift-container').style.display = 'none'; document.getElementById('card').style.display = 'block'; setInterval(createHeart, 250); }
-        function playMusic() { document.getElementById('birthday-song').play(); }
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            heart.innerHTML = '🌸';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
-            document.body.appendChild(heart);
-            setTimeout(() => { heart.remove(); }, 5000);
+        const quotes = ["You're wonderful, Nidhi! 🌸", "May your dreams come true! ✨", "To another year of joy! 🥂", "You are the best! ❤️"];
+        let qIdx = 0;
+        function openGift() { 
+            document.getElementById('gift-container').style.display = 'none'; 
+            document.getElementById('card').style.display = 'block'; 
+            setInterval(createFloating, 300); 
+            setInterval(() => { qIdx = (qIdx + 1) % quotes.length; document.getElementById('quotes').innerText = quotes[qIdx]; }, 3000); 
         }
+        function playMusic() { 
+            const audio = document.getElementById('song');
+            audio.play().then(() => { console.log("Music playing"); }).catch(e => { alert("Click again to play music!"); });
+        }
+        function blowCandle() { alert("Make a wish, Nidhi! 🌠"); }
+        function createFloating() { const el = document.createElement('div'); el.classList.add('floating'); el.innerHTML = '🌸'; el.style.left = Math.random() * 100 + 'vw'; el.style.animationDuration = (Math.random() * 2 + 3) + 's'; document.body.appendChild(el); setTimeout(() => el.remove(), 5000); }
+        function createSparkle(e) { const s = document.createElement('div'); s.innerHTML = '✨'; s.style.position = 'absolute'; s.style.left = e.pageX + 'px'; s.style.top = e.pageY + 'px'; s.style.pointerEvents = 'none'; document.body.appendChild(s); setTimeout(() => s.remove(), 800); }
     </script>
 </body>
 </html>
