@@ -3,63 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>For Khushi ❤️</title>
+    <title>A Magical Gift for Khushi ❤️</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&display=swap');
-        body { margin: 0; background: #0b0d17; color: white; height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; font-family: 'Poppins', sans-serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap');
         
-        /* Direct Candle View */
-        #main-stage { text-align: center; cursor: pointer; -webkit-tap-highlight-color: transparent; }
-        .candle { font-size: 100px; position: relative; display: inline-block; animation: pulse 2s infinite; }
-        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
-        .hint { margin-top: 20px; color: #ff9a9e; font-weight: bold; letter-spacing: 2px; animation: blink 1.5s infinite; }
-        @keyframes blink { 50% { opacity: 0.3; } }
+        body { margin: 0; background: #050505; color: white; height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; font-family: 'Poppins', sans-serif; }
+        
+        /* Interactive Background */
+        #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: radial-gradient(circle at center, #1a0b1a 0%, #050505 100%); }
 
-        /* Elegant Wish Card */
-        #card { 
-            display: none; width: 85%; max-width: 400px; padding: 30px; border-radius: 30px;
-            background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(20px);
-            border: 2px solid rgba(255, 154, 158, 0.3); text-align: center;
-            box-shadow: 0 0 50px rgba(255, 154, 158, 0.2);
-            animation: pop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        /* Step 1: The Magical Candle */
+        #candle-stage { text-align: center; cursor: pointer; z-index: 10; transition: opacity 0.5s; }
+        .candle-stick { position: relative; width: 45px; height: 150px; background: linear-gradient(to right, #ff9a9e, #fad0c4); border-radius: 8px; margin: 0 auto; box-shadow: 0 0 20px rgba(255,154,158,0.5); }
+        .flame { 
+            position: absolute; top: -55px; left: 50%; transform: translateX(-50%);
+            width: 30px; height: 55px; background: #ff4d4d; border-radius: 50% 50% 35% 35%;
+            box-shadow: 0 0 40px #ff4d4d, 0 0 80px #ff9a9e;
+            animation: flicker 0.1s infinite alternate; transition: all 0.3s;
         }
-        @keyframes pop { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        @keyframes flicker { 0% { transform: translateX(-50%) scale(1); opacity: 0.9; } 100% { transform: translateX(-50%) scale(1.1) rotate(3deg); opacity: 1; } }
+        .hint { margin-top: 40px; color: #ff9a9e; font-weight: 600; letter-spacing: 2px; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.05); opacity: 1; } }
 
-        h1 { font-family: 'Dancing Script', cursive; font-size: 3rem; color: #ff9a9e; margin: 0; }
-        .btn { background: #ff4d4d; border: none; padding: 15px; color: white; border-radius: 50px; width: 100%; font-weight: bold; margin-top: 20px; cursor: pointer; }
-        .float { position: absolute; bottom: -50px; animation: fly 5s linear infinite; }
-        @keyframes fly { to { transform: translateY(-115vh) rotate(360deg); opacity: 0; } }
+        /* Step 2: The Luxury Wish Box */
+        #wish-box { 
+            display: none; width: 85%; max-width: 400px; padding: 40px 20px; border-radius: 40px;
+            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.2); text-align: center;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,255,255,0.1);
+            animation: slideUp 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes slideUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        h1 { font-family: 'Dancing Script', cursive; font-size: 3rem; color: #ff9a9e; margin: 0; text-shadow: 0 0 15px rgba(255,154,158,0.5); }
+        .tagline { font-size: 0.9rem; color: #f1c40f; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 20px; display: block; }
+        
+        .message-box { padding: 15px; background: rgba(0,0,0,0.2); border-radius: 20px; margin: 20px 0; font-style: italic; color: #eee; border-left: 4px solid #ff4d4d; }
+
+        /* Step 3: Interactive Play Button */
+        .play-btn { 
+            background: linear-gradient(45deg, #ff4d4d, #ff9a9e); border: none; padding: 18px;
+            color: white; border-radius: 50px; width: 100%; font-weight: bold; font-size: 1rem;
+            box-shadow: 0 10px 30px rgba(255,77,77,0.5); cursor: pointer;
+            transition: 0.3s; position: relative; overflow: hidden;
+        }
+        .play-btn:active { transform: scale(0.95); }
+        .play-btn::after { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); animation: shine 3s infinite; }
+        @keyframes shine { to { left: 100%; } }
+
+        /* Confetti & Decor */
+        .confetti { position: absolute; pointer-events: none; animation: fall 4s linear forwards; }
+        @keyframes fall { to { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
     </style>
 </head>
-<body>
+<body onclick="createSparkle(event)">
 
-    <div id="main-stage" onclick="openSurprise()">
-        <div class="candle">🕯️</div>
-        <div class="hint">KHUSHI, TAP TO BLOW & WISH! 🎂</div>
+    <div id="bg-canvas"></div>
+
+    <div id="candle-stage" onmousedown="holdStart()" ontouchstart="holdStart()" onmouseup="holdEnd()" ontouchend="holdEnd()">
+        <div class="candle-stick">
+            <div id="main-flame" class="flame"></div>
+        </div>
+        <div class="hint">MAKE A WISH &<br>HOLD TO BLOW 🕯️</div>
     </div>
 
-    <div id="card">
-        <h1>Happy Birthday, Khushi!</h1>
-        <p>Wishing you a day as beautiful as your smile! ✨</p>
-        <button class="btn" onclick="document.getElementById('song').play()">🎵 PLAY MUSIC 🎵</button>
+    <div id="wish-box">
+        <span class="tagline">Happy Birthday</span>
+        <h1>Khushi!</h1>
+        <div class="message-box">
+            "You are the star that brightens every room. May your year be as incredible as you are!"
+        </div>
+        <button class="play-btn" onclick="celebrateNow()">✨ UNLOCK THE MUSIC ✨</button>
+        <p style="font-size: 0.7rem; color: #888; margin-top: 15px;">TAP BUTTON FOR A SURPRISE</p>
     </div>
 
-    <audio id="song" loop preload="auto">
-        <source src="https://actions.google.com/config/en/resources/media/music/happy_birthday.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="bdaySong" loop><source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
 
     <script>
-        function openSurprise() {
-            const a = document.getElementById('song');
-            a.play().catch(() => {}); // Try to play music on first tap
-            document.getElementById('main-stage').style.display = 'none';
-            document.getElementById('card').style.display = 'block';
-            setInterval(() => {
-                const b = document.createElement('div'); b.className='float';
-                b.innerHTML = ['🎈','💖','✨','🌸'][Math.floor(Math.random()*4)];
-                b.style.left = Math.random()*100+'vw'; b.style.fontSize = '25px';
-                document.body.appendChild(b); setTimeout(()=>b.remove(), 5000);
-            }, 400);
+        let holdTimer;
+        const audio = document.getElementById('bdaySong');
+
+        function holdStart() {
+            document.getElementById('main-flame').style.transform = 'translateX(-50%) scale(1.5)';
+            holdTimer = setTimeout(() => {
+                document.getElementById('main-flame').style.opacity = '0';
+                document.getElementById('main-flame').style.transform = 'translateX(-50%) scale(0.1)';
+                setTimeout(revealWish, 500);
+            }, 1200);
+        }
+
+        function holdEnd() {
+            clearTimeout(holdTimer);
+            if(document.getElementById('main-flame').style.opacity !== '0') {
+                document.getElementById('main-flame').style.transform = 'translateX(-50%) scale(1)';
+            }
+        }
+
+        function revealWish() {
+            document.getElementById('candle-stage').style.display = 'none';
+            document.getElementById('wish-box').style.display = 'block';
+            audio.play().catch(() => console.log("Waiting for button tap"));
+            spawnExplosion();
+        }
+
+        function celebrateNow() {
+            audio.play();
+            document.querySelector('.play-btn').innerText = "🔊 CELEBRATING! 🥳";
+            for(let i=0; i<50; i++) { setTimeout(spawnExplosion, i * 100); }
+        }
+
+        function spawnExplosion() {
+            const colors = ['#ff4d4d', '#ff9a9e', '#f1c40f', '#fff', '#fad0c4'];
+            for(let i=0; i<10; i++) {
+                const c = document.createElement('div');
+                c.className = 'confetti';
+                c.style.left = Math.random() * 100 + 'vw';
+                c.style.top = '-10px';
+                c.style.width = '10px';
+                c.style.height = '10px';
+                c.style.backgroundColor = colors[Math.floor(Math.random()*colors.length)];
+                c.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                c.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                document.body.appendChild(c);
+                setTimeout(() => c.remove(), 4000);
+            }
+        }
+
+        function createSparkle(e) {
+            const s = document.createElement('div');
+            s.innerHTML = '✨';
+            s.style.position = 'absolute';
+            s.style.left = e.pageX + 'px';
+            s.style.top = e.pageY + 'px';
+            s.style.pointerEvents = 'none';
+            s.style.transition = '0.5s';
+            document.body.appendChild(s);
+            setTimeout(() => { s.style.opacity = '0'; s.style.transform = 'translateY(-20px)'; }, 100);
+            setTimeout(() => s.remove(), 600);
         }
     </script>
 </body>
