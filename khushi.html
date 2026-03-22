@@ -5,42 +5,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Make a Wish, Khushi!</title>
     <style>
-        body { margin: 0; padding: 0; background: #0b0d17; color: white; height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; font-family: 'Arial', sans-serif; touch-action: manipulation; }
-        #candle-section { text-align: center; user-select: none; -webkit-user-select: none; }
-        .candle { font-size: 80px; position: relative; display: inline-block; }
-        .flame { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); font-size: 45px; animation: flicker 0.1s infinite alternate; }
-        @keyframes flicker { 0% { opacity: 0.8; transform: translateX(-50%) scale(1); } 100% { opacity: 1; transform: translateX(-50%) scale(1.2); } }
-        .hint { margin-top: 25px; font-size: 1.1rem; color: #ff9a9e; animation: blink 1.5s infinite; font-weight: bold; }
-        @keyframes blink { 50% { opacity: 0.2; } }
-        #card { display: none; width: 88%; background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(20px); border-radius: 30px; border: 1px solid rgba(255,255,255,0.2); padding: 30px 15px; text-align: center; box-shadow: 0 0 50px rgba(0,0,0,0.9); animation: pop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        body { margin: 0; background: #0b0d17; color: white; height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; font-family: 'Arial', sans-serif; }
+        
+        /* Realistic Candle CSS */
+        .holder { position: relative; width: 150px; height: 300px; text-align: center; user-select: none; -webkit-user-select: none; }
+        .candle { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 60px; height: 180px; background: linear-gradient(#ff9a9e, #ff4d4d); border-radius: 10px 10px 5px 5px; box-shadow: inset 5px 0 15px rgba(0,0,0,0.2); }
+        .thread { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 4px; height: 15px; background: #333; }
+        
+        .flame { 
+            position: absolute; top: -70px; left: 50%; transform: translateX(-50%);
+            width: 30px; height: 60px; background: orange; border-radius: 50% 50% 35% 35%;
+            box-shadow: 0 0 30px 10px rgba(255, 165, 0, 0.6);
+            animation: flicker 0.1s infinite alternate; transition: transform 0.5s, opacity 0.5s;
+        }
+        @keyframes flicker { 0% { transform: translateX(-50%) scale(1); } 100% { transform: translateX(-50%) scale(1.1) rotate(2deg); } }
+        
+        .instruction { position: absolute; top: 320px; width: 250px; left: 50%; transform: translateX(-50%); color: #ff9a9e; font-weight: bold; animation: blink 1.5s infinite; }
+        @keyframes blink { 50% { opacity: 0.1; } }
+
+        /* The Surprise Card */
+        #card { 
+            display: none; width: 88%; background: rgba(255, 255, 255, 0.08); 
+            backdrop-filter: blur(20px); border-radius: 30px; border: 1px solid rgba(255,255,255,0.2);
+            padding: 30px 15px; text-align: center; box-shadow: 0 0 50px rgba(0,0,0,0.9);
+            animation: pop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
         @keyframes pop { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
-        h1 { color: #ff9a9e; font-size: 2rem; text-shadow: 0 0 15px #ff9a9e; }
-        .stat-box { background: rgba(255,255,255,0.1); padding: 12px; border-radius: 15px; font-size: 0.85rem; margin: 5px; }
-        .btn { background: #ff4d4d; border: none; padding: 15px 30px; color: white; border-radius: 50px; font-weight: bold; margin-top: 15px; box-shadow: 0 0 20px rgba(255,77,77,0.6); width: 100%; cursor: pointer; }
+        
+        h1 { color: #ff9a9e; font-size: 2rem; margin: 10px 0; }
+        .btn { background: #ff4d4d; border: none; padding: 15px; color: white; border-radius: 50px; width: 100%; font-weight: bold; margin-top: 15px; box-shadow: 0 10px 20px rgba(255,77,77,0.4); }
         .heart { position: absolute; pointer-events: none; animation: fly 4s linear infinite; bottom: -50px; }
         @keyframes fly { to { transform: translateY(-115vh) rotate(360deg); opacity: 0; } }
     </style>
 </head>
 <body>
-    <div id="candle-section" onmousedown="blow()" ontouchstart="blow()" onmouseup="stop()" ontouchend="stop()">
-        <div class="candle"><span id="flame" class="flame">🔥</span>🕯️</div>
-        <div class="hint">HOLD FINGER ON FLAME TO BLOW OUT!</div>
-    </div>
-    <div id="card">
-        <h1>Happy Birthday, Khushi! 🎂</h1>
-        <div style="display: flex; flex-wrap: wrap; justify-content: center;">
-            <div class="stat-box"><b>Secrets:</b> 100% Safe</div>
-            <div class="stat-box"><b>Vibes:</b> 10/10</div>
-            <div class="stat-box"><b>Friendship:</b> Forever</div>
+
+    <div id="candle-section" class="holder" onmousedown="startBlow()" ontouchstart="startBlow()" onmouseup="stopBlow()" ontouchend="stopBlow()">
+        <div class="candle">
+            <div class="thread"></div>
+            <div id="flame" class="flame"></div>
         </div>
-        <button class="btn" onclick="play()">🎵 PLAY MUSIC 🎵</button>
+        <div class="instruction">PRESS & HOLD FLAME TO BLOW OUT</div>
     </div>
-    <audio id="m" loop><source src="https://www.chosic.com/wp-content/uploads/2021/04/Happy-Birthday-Funny-Song.mp3"></audio>
+
+    <div id="card">
+        <span style="font-size: 50px;">🎂</span>
+        <h1>Happy Birthday, Khushi!</h1>
+        <p>Wishing you a day as bright as your smile!</p>
+        <button class="btn" onclick="playMusic()">🎵 PLAY BIRTHDAY MUSIC 🎵</button>
+    </div>
+
+    <audio id="song" loop><source src="https://www.chosic.com/wp-content/uploads/2021/04/Happy-Birthday-Funny-Song.mp3"></audio>
+
     <script>
-        let t; function blow() { t = setTimeout(() => { document.getElementById('flame').style.display='none'; setTimeout(() => { document.getElementById('candle-section').style.display='none'; document.getElementById('card').style.display='block'; setInterval(heart, 300); }, 600); }, 1200); }
-        function stop() { clearTimeout(t); }
-        function play() { document.getElementById('m').play(); }
-        function heart() { const h = document.createElement('div'); h.className='heart'; h.innerHTML='❤️'; h.style.left=Math.random()*100+'vw'; h.style.animationDuration=(Math.random()*2+3)+'s'; document.body.appendChild(h); setTimeout(()=>h.remove(), 5000); }
+        let timer;
+        function startBlow() {
+            // Shrink the flame as they hold
+            document.getElementById('flame').style.transform = 'translateX(-50%) scale(0.3)';
+            timer = setTimeout(() => {
+                document.getElementById('flame').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('candle-section').style.display = 'none';
+                    document.getElementById('card').style.display = 'block';
+                    setInterval(spawnHeart, 300);
+                }, 400);
+            }, 1000); // 1 second hold time
+        }
+        function stopBlow() {
+            clearTimeout(timer);
+            const flame = document.getElementById('flame');
+            if (flame.style.opacity !== '0') {
+                flame.style.transform = 'translateX(-50%) scale(1)';
+            }
+        }
+        function playMusic() { document.getElementById('song').play(); }
+        function spawnHeart() {
+            const h = document.createElement('div'); h.className='heart'; h.innerHTML='❤️';
+            h.style.left=Math.random()*100+'vw'; h.style.animationDuration=(Math.random()*2+3)+'s';
+            document.body.appendChild(h); setTimeout(()=>h.remove(), 5000);
+        }
     </script>
 </body>
 </html>
