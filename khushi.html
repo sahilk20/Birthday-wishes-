@@ -3,105 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Surprise for Khushi!</title>
+    <title>A Special Surprise for Khushi! ❤️</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
-        body { margin: 0; background: #0b0d17; color: white; height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; font-family: 'Arial', sans-serif; }
+        /* Modern, elegant font from Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&family=Dancing+Script:wght@700&display=swap');
         
-        /* Candle UI */
-        .holder { position: relative; width: 150px; height: 300px; text-align: center; user-select: none; -webkit-user-select: none; }
-        .candle { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 50px; height: 160px; background: linear-gradient(#ff9a9e, #ff4d4d); border-radius: 10px; box-shadow: inset 5px 0 15px rgba(0,0,0,0.3); }
+        body { margin: 0; padding: 0; height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; font-family: 'Poppins', sans-serif; background: #0b0d17; color: white; -webkit-tap-highlight-color: transparent; }
+        
+        /* Step 1: Candle UI with Realistic Flame */
+        #candle-section { text-align: center; cursor: pointer; user-select: none; -webkit-user-select: none; z-index: 10; }
+        .candle-body { position: relative; display: inline-block; font-size: 80px; }
         .flame { 
-            position: absolute; top: -65px; left: 50%; transform: translateX(-50%);
-            width: 35px; height: 65px; background: #ffcc00; border-radius: 50% 50% 35% 35%;
-            box-shadow: 0 0 40px 15px rgba(255, 204, 0, 0.8);
-            animation: flicker 0.1s infinite alternate; transition: all 0.4s;
+            position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
+            font-size: 45px; animation: flicker 0.1s infinite alternate; transition: all 0.4s;
         }
-        @keyframes flicker { 0% { transform: translateX(-50%) scale(1); } 100% { transform: translateX(-50%) scale(1.1); } }
-        
-        #card { 
-            display: none; width: 85%; background: rgba(255, 255, 255, 0.1); 
-            backdrop-filter: blur(20px); border-radius: 30px; border: 1px solid rgba(255,255,255,0.3);
-            padding: 25px; text-align: center; box-shadow: 0 0 50px rgba(255,154,158,0.4);
-            animation: pop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        @keyframes pop { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
-        
-        h1 { font-family: 'Dancing Script', cursive; color: #ff9a9e; font-size: 2.5rem; margin: 10px 0; }
-        .instruction { margin-top: 320px; color: #ffcc00; font-weight: bold; animation: blink 1.5s infinite; position: absolute; width: 200px; left: -25px; }
+        @keyframes flicker { 0% { opacity: 0.8; transform: translateX(-50%) scale(1); } 100% { opacity: 1; transform: translateX(-50%) scale(1.1); background: #ffcc00; } }
+        .instruction { margin-top: 25px; font-size: 1.1rem; color: #ff9a9e; animation: blink 1.5s infinite; letter-spacing: 1.5px; text-shadow: 0 0 10px #ff9a9e; }
         @keyframes blink { 50% { opacity: 0.2; } }
 
-        .btn { background: #ff4d4d; border: none; padding: 15px; color: white; border-radius: 50px; width: 100%; font-weight: bold; margin-top: 15px; box-shadow: 0 5px 15px rgba(255,77,77,0.5); cursor: pointer; }
-        .balloon { position: absolute; bottom: -100px; animation: floatUp 6s ease-in infinite; opacity: 0.8; }
-        @keyframes floatUp { 0% { bottom: -100px; transform: translateX(0); } 50% { transform: translateX(20px); } 100% { bottom: 110vh; } }
+        /* Step 2: The Card (Ultra Beautiful Glassmorphism) */
+        #card { 
+            display: none; width: 88%; max-width: 400px; padding: 30px; border-radius: 30px; text-align: center;
+            background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(25px); border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 50px rgba(255,154,158,0.2), inset 0 0 20px rgba(255,255,255,0.05);
+            animation: cardAppear 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes cardAppear { from { opacity: 0; transform: scale(0.6) rotateX(45deg); } to { opacity: 1; transform: scale(1) rotateX(0deg); } }
+
+        h1 { font-family: 'Dancing Script', cursive; font-size: 2.8rem; color: #ff9a9e; text-shadow: 0 0 20px rgba(255,154,158,0.7); margin: 0 0 15px 0; }
+        p { font-size: 1rem; line-height: 1.7; color: rgba(255,255,255,0.9); margin-bottom: 25px; font-weight: 300; }
+
+        .btn-celebrate {
+            background: linear-gradient(45deg, #ff4d4d, #ff9a9e); border: none; padding: 15px 30px;
+            color: white; border-radius: 50px; font-weight: bold; width: 100%; font-size: 1.1rem; cursor: pointer;
+            box-shadow: 0 10px 20px rgba(255,77,77,0.4); transition: transform 0.2s;
+        }
+        .btn-celebrate:active { transform: scale(0.95); }
+
+        /* Step 3: Interactive Stars/Heart Dust Background */
+        .heart { position: absolute; pointer-events: none; animation: floatUp 4s linear infinite; bottom: -50px; z-index: -1; }
+        @keyframes floatUp { to { transform: translateY(-115vh) rotate(360deg); opacity: 0; } }
+
+        /* Simple Loading State to prevent early clicks */
+        #loader { display: none; color: #ff9a9e; font-size: 1.2rem; }
     </style>
 </head>
 <body>
 
-    <div id="candle-section" class="holder" onmousedown="blow()" ontouchstart="blow()" onmouseup="stop()" ontouchend="stop()">
-        <div class="candle"><div id="flame" class="flame"></div></div>
-        <div class="instruction">HOLD TO BLOW & WISH! 🎂<br>(Turn Volume Up 🔊)</div>
+    <div id="candle-section" onmousedown="startWish()" ontouchstart="startWish()" onmouseup="stopWish()" ontouchend="stopWish()">
+        <div class="candle-body">
+            <span id="flame" class="flame">🔥</span>
+            🕯️
+        </div>
+        <div class="instruction">PRESS & HOLD THE FLAME<br>TO MAKE A WISH, KHUSHI! 🎂</div>
     </div>
 
     <div id="card">
+        <span style="font-size: 50px;">🎂🌸🎂</span>
         <h1>Happy Birthday, Khushi!</h1>
-        <p>Wishing you a day full of music and magic!</p>
-        <button class="btn" id="playBtn" onclick="forcePlay()">🎵 START THE MUSIC 🎵</button>
+        <p>"May your special day be filled with endless laughter, magical moments, and all the happiness your heart desires. Thank you for being such an amazing friend!"</p>
+        <button class="btn-celebrate" onclick="playMusic()">🎵 START THE CELEBRATION 🎵</button>
+        <div style="font-size: 0.8rem; color: rgba(255,255,255,0.4); margin-top: 15px;">A Musical Gift, Especially For You ✨</div>
     </div>
 
     <audio id="bdaySong" loop preload="auto">
-        <source src="https://actions.google.com/config/en/resources/media/music/happy_birthday.mp3" type="audio/mpeg">
+        <source src="https://dl.dropboxusercontent.com/s/9n7u0t9h4g9h3g/Happy_Birthday_to_You.mp3" type="audio/mpeg">
     </audio>
 
     <script>
         const audio = document.getElementById('bdaySong');
-        let timer;
+        let t; 
 
-        // Technical Fix: Pre-load/Unlock audio on first touch
+        // Sound Unlocker: This "wakes up" the phone's audio on the very first touch.
         document.body.addEventListener('touchstart', function() {
             audio.play().then(() => { audio.pause(); }).catch(e => {});
         }, {once: true});
 
-        function blow() {
-            document.getElementById('flame').style.transform = 'translateX(-50%) scale(0.2)';
-            timer = setTimeout(() => {
+        function startWish() {
+            // Visualize the "blow" by growing the flame first
+            document.getElementById('flame').style.transform = 'translateX(-50%) scale(1.5)';
+            document.getElementById('flame').style.filter = 'blur(5px)';
+            
+            // Wait 1.5 seconds, then "snuff out"
+            t = setTimeout(() => {
+                document.getElementById('flame').style.transition = 'all 0.6s ease';
+                document.getElementById('flame').style.transform = 'translateX(-50%) scale(0.1)';
                 document.getElementById('flame').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('candle-section').style.display = 'none';
-                    document.getElementById('card').style.display = 'block';
-                    startBalloons();
-                    // Attempt auto-play
-                    forcePlay();
-                }, 400);
-            }, 1200);
+                
+                // Show the card after the flame is out
+                setTimeout(revealCard, 700);
+            }, 1500); 
         }
 
-        function stop() { 
-            clearTimeout(timer); 
-            if(document.getElementById('flame').style.opacity !== '0') {
-                document.getElementById('flame').style.transform = 'translateX(-50%) scale(1)';
+        function stopWish() { 
+            clearTimeout(t); 
+            const flame = document.getElementById('flame');
+            // If they stop early, reset the flame
+            if(flame.style.opacity !== '0') {
+                flame.style.transition = 'all 0.2s ease';
+                flame.style.transform = 'translateX(-50%) scale(1)';
+                flame.style.filter = 'blur(0)';
             }
         }
 
-        function forcePlay() {
-            audio.muted = false;
-            audio.play().then(() => {
-                document.getElementById('playBtn').innerText = "🔊 MUSIC PLAYING...";
-            }).catch(err => {
-                console.log("Waiting for user tap");
-            });
+        function revealCard() {
+            document.getElementById('candle-section').style.display = 'none';
+            document.getElementById('card').style.display = 'block';
+            
+            // Attempt auto-play now that she's interacted
+            audio.play().catch(e => { console.log("Waiting for final play button tap."); });
+
+            // Start the premium "floating stars" background
+            setInterval(createStarDust, 300);
         }
 
-        function startBalloons() {
-            setInterval(() => {
-                const b = document.createElement('div');
-                b.className = 'balloon';
-                b.innerHTML = ['🎈','💖','✨'][Math.floor(Math.random()*3)];
-                b.style.left = Math.random() * 100 + 'vw';
-                b.style.fontSize = (Math.random() * 20 + 20) + 'px';
-                document.body.appendChild(b);
-                setTimeout(() => b.remove(), 6000);
-            }, 500);
+        function playMusic() { 
+            audio.play(); 
+            // Give visual feedback on the button
+            const btn = document.querySelector('.btn-celebrate');
+            btn.innerText = "🔊 MUSIC PLAYING... Turn it up!";
+        }
+
+        function createStarDust() {
+            const h = document.createElement('div');
+            h.className = 'heart';
+            // Use premium stars and hearts
+            h.innerHTML = ['✨','💖','🌸','💎','🌟'][Math.floor(Math.random()*5)];
+            h.style.left = Math.random() * 100 + 'vw';
+            h.style.fontSize = (Math.random() * 15 + 15) + 'px'; // Random sizes
+            h.style.animationDuration = (Math.random() * 2 + 3) + 's'; // Random speeds
+            document.body.appendChild(h);
+            setTimeout(() => h.remove(), 5000);
         }
     </script>
 </body>
