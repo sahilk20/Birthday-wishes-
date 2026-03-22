@@ -3,62 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>For Nidhi ✨</title>
+    <title>A Wish for Nidhi</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&display=swap');
-        body { margin: 0; background: #00050a; color: white; height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; font-family: 'Poppins', sans-serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
         
-        #main-stage { text-align: center; cursor: pointer; -webkit-tap-highlight-color: transparent; }
-        .star { font-size: 100px; animation: float 3s infinite; display: inline-block; filter: drop-shadow(0 0 20px gold); }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
-        .hint { margin-top: 20px; color: gold; letter-spacing: 2px; font-weight: bold; animation: blink 1.5s infinite; }
+        body { margin: 0; background: #000; color: white; height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; font-family: 'Arial', sans-serif; touch-action: manipulation; }
+        
+        /* Starry Night Background */
+        #sky { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; background: linear-gradient(135deg, #000 0%, #0c001c 100%); }
+        .star { position: absolute; background: white; border-radius: 50%; opacity: 0; animation: twinkle 3s infinite; }
+        @keyframes twinkle { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
+
+        /* The Wish Icon */
+        #wish-container { text-align: center; cursor: pointer; z-index: 10; }
+        .wish-icon { font-size: 80px; filter: drop-shadow(0 0 20px #f1c40f); animation: bounce 2s infinite; display: block; }
+        .wish-text { color: #f1c40f; margin-top: 25px; font-size: 1.1rem; letter-spacing: 2px; font-weight: bold; animation: blink 1.5s infinite; }
+        @keyframes bounce { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1) translateY(-10px); } }
         @keyframes blink { 50% { opacity: 0.3; } }
 
-        #card { 
-            display: none; width: 85%; max-width: 400px; padding: 30px; border-radius: 30px;
-            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(25px);
-            border: 2px solid rgba(241, 196, 15, 0.4); text-align: center;
-            box-shadow: 0 0 50px rgba(241, 196, 15, 0.2);
-            animation: crystallize 1s ease-out;
-        }
-        @keyframes crystallize { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        /* Shooting Star Animation */
+        #shooting-star { display: none; position: absolute; width: 4px; height: 4px; background: white; border-radius: 50%; box-shadow: 0 0 20px 2px white; animation: shoot 1s linear forwards; z-index: 5; }
+        @keyframes shoot { 0% { top: 0; left: 0; opacity: 0; } 10% { opacity: 1; } 100% { top: 100vh; left: 100vw; opacity: 0; } }
 
-        h1 { font-family: 'Dancing Script', cursive; font-size: 3rem; color: gold; margin: 0; }
-        .btn { background: gold; border: none; padding: 15px; color: black; border-radius: 50px; width: 100%; font-weight: bold; margin-top: 20px; cursor: pointer; }
-        .float { position: absolute; bottom: -50px; animation: fly 5s linear infinite; }
-        @keyframes fly { to { transform: translateY(-115vh) rotate(360deg); opacity: 0; } }
+        /* Crystallized Glass Card */
+        #card { 
+            display: none; width: 85%; background: rgba(255, 255, 255, 0.05); 
+            backdrop-filter: blur(25px); border-radius: 25px; border: 1px solid rgba(241, 196, 15, 0.3);
+            padding: 30px 15px; text-align: center; box-shadow: 0 0 40px rgba(241,196,15,0.2);
+            animation: crystallize 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes crystallize { from { transform: scale(0.1); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        h1 { font-family: 'Dancing Script', cursive; font-size: 2.5rem; color: #f1c40f; text-shadow: 0 0 15px rgba(241,196,15,0.5); margin: 10px 0; }
+        p { line-height: 1.6; font-size: 1.1rem; color: #eee; }
+
+        .music-btn { 
+            background: linear-gradient(45deg, #f1c40f, #f39c12); border: none; padding: 15px;
+            color: black; border-radius: 50px; font-weight: bold; width: 100%; margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(241,196,15,0.4); cursor: pointer;
+        }
+
+        .floating-star { position: absolute; pointer-events: none; animation: floatUp 4s linear infinite; bottom: -50px; }
+        @keyframes floatUp { to { transform: translateY(-115vh) rotate(360deg); opacity: 0; } }
     </style>
 </head>
-<body>
+<body onload="setupStars()">
 
-    <div id="main-stage" onclick="openNidhi()">
-        <div class="star">💫</div>
-        <div class="hint">NIDHI, TAP THE STAR! 🌟</div>
+    <div id="sky"></div>
+
+    <div id="wish-container" onclick="makeAWish()">
+        <span class="wish-icon">💫</span>
+        <div class="wish-text">NIDHI, TAP TO MAKE A WISH!<br>(Volume Up 🔊)</div>
     </div>
+
+    <div id="shooting-star"></div>
 
     <div id="card">
+        <span style="font-size: 40px;">🌟</span>
         <h1>Happy Birthday, Nidhi!</h1>
-        <p>May your year be as bright as the stars! ✨</p>
-        <button class="btn" onclick="document.getElementById('song').play()">🎵 PLAY MUSIC 🎵</button>
+        <p>"May your year be as bright as the stars and as beautiful as your heart."</p>
+        <button class="music-btn" id="playBtn" onclick="forcePlay()">🎵 START THE CELEBRATION 🎵</button>
     </div>
 
-    <audio id="song" loop preload="auto">
+    <audio id="bdaySong" loop preload="auto">
         <source src="https://actions.google.com/config/en/resources/media/music/happy_birthday.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        function openNidhi() {
-            const a = document.getElementById('song');
-            a.play().catch(() => {});
-            document.getElementById('main-stage').style.display = 'none';
-            document.getElementById('card').style.display = 'block';
-            setInterval(() => {
-                const b = document.createElement('div'); b.className='float';
-                b.innerHTML = ['✨','🌟','💫','💛'][Math.floor(Math.random()*4)];
-                b.style.left = Math.random()*100+'vw'; b.style.fontSize = '20px';
-                document.body.appendChild(b); setTimeout(()=>b.remove(), 5000);
-            }, 400);
+        const audio = document.getElementById('bdaySong');
+
+        // Silent Unlocker for Mobile Audio
+        document.body.addEventListener('touchstart', function() {
+            audio.play().then(() => { audio.pause(); }).catch(e => {});
+        }, {once: true});
+
+        function setupStars() {
+            const sky = document.getElementById('sky');
+            for(let i=0; i<80; i++) {
+                const s = document.createElement('div');
+                s.className = 'star';
+                s.style.top = Math.random() * 100 + 'vh';
+                s.style.left = Math.random() * 100 + 'vw';
+                const size = Math.random() * 2 + 1;
+                s.style.width = size + 'px';
+                s.style.height = size + 'px';
+                s.style.animationDelay = Math.random() * 3 + 's';
+                sky.appendChild(s);
+            }
+        }
+
+        function makeAWish() {
+            document.getElementById('wish-container').style.display = 'none';
+            document.getElementById('shooting-star').style.display = 'block';
+            
+            setTimeout(() => {
+                document.getElementById('shooting-star').style.display = 'none';
+                document.getElementById('card').style.display = 'block';
+                setInterval(spawnStar, 400);
+                forcePlay();
+            }, 1000);
+        }
+
+        function forcePlay() {
+            audio.muted = false;
+            audio.play().then(() => {
+                document.getElementById('playBtn').innerText = "🔊 MUSIC PLAYING...";
+            }).catch(err => {
+                console.log("Tap required for audio");
+            });
+        }
+
+        function spawnStar() {
+            const el = document.createElement('div'); el.classList.add('floating-star');
+            el.innerHTML = ['✨','🌟','💫','💛'][Math.floor(Math.random()*4)];
+            el.style.left = Math.random() * 100 + 'vw';
+            el.style.fontSize = (Math.random() * 15 + 15) + 'px';
+            el.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            document.body.appendChild(el); setTimeout(() => el.remove(), 5000);
         }
     </script>
 </body>
 </html>
+
