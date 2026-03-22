@@ -2,66 +2,110 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Birthday Magic for Nidhi!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>A Wish for Nidhi</title>
     <style>
-        body { margin: 0; padding: 0; background: #0b0d17; color: white; height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; font-family: 'Arial', sans-serif; }
-        #gift-container { text-align: center; cursor: pointer; z-index: 10; }
-        .box { font-size: 100px; animation: bounce 1.5s infinite; display: block; }
-        .tap-text { margin-top: 20px; font-size: 1.2rem; letter-spacing: 2px; animation: blink 1s infinite; color: #a1c4fd; }
-        @keyframes bounce { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1) translateY(-15px); } }
+        body { margin: 0; background: #000; color: white; height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; font-family: 'Poppins', sans-serif; touch-action: manipulation; }
+        
+        /* Starry Night Canvas */
+        #sky { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; background: linear-gradient(135deg, #000 0%, #0c001c 100%); }
+        .star { position: absolute; background: white; border-radius: 50%; opacity: 0; animation: twinkle 3s infinite; }
+        @keyframes twinkle { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
+
+        /* The Wish Button */
+        #wish-container { text-align: center; }
+        .wish-icon { font-size: 80px; filter: drop-shadow(0 0 20px #f1c40f); animation: bounce 2s infinite; display: block; }
+        .wish-text { color: #f1c40f; margin-top: 25px; font-size: 1.2rem; letter-spacing: 3px; font-weight: bold; animation: blink 1.5s infinite; text-shadow: 0 0 10px #f1c40f; }
+        @keyframes bounce { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1) translateY(-10px); } }
         @keyframes blink { 50% { opacity: 0.3; } }
-        #card { display: none; width: 85%; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); border-radius: 30px; border: 1px solid rgba(255,255,255,0.2); padding: 30px 15px; text-align: center; box-shadow: 0 0 40px rgba(0,0,0,0.8); animation: fadeIn 1s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
-        .cake { font-size: 70px; margin-bottom: 10px; cursor: pointer; transition: 0.3s; }
-        .cake:active { transform: scale(1.3); }
-        h1 { color: #a1c4fd; font-size: 2rem; text-shadow: 0 0 10px #a1c4fd; margin-bottom: 5px; }
-        .friendship-tag { display: inline-block; background: #3498db; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-bottom: 20px; }
-        .quote-box { height: 60px; font-style: italic; color: #f1c40f; margin: 15px 0; font-size: 1.1rem; }
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
-        .stat { background: rgba(255,255,255,0.1); padding: 10px; border-radius: 15px; font-size: 0.8rem; }
-        .music-btn { background: #3498db; border: none; padding: 12px 25px; color: white; border-radius: 50px; font-weight: bold; margin-top: 10px; box-shadow: 0 0 15px rgba(52,152,219,0.5); cursor: pointer; }
-        .floating { position: absolute; pointer-events: none; animation: floatUp 4s linear infinite; bottom: -50px; z-index: -1; }
+
+        /* The Shooting Star */
+        #shooting-star { display: none; position: absolute; width: 4px; height: 4px; background: white; border-radius: 50%; box-shadow: 0 0 20px 2px white, 0 0 40px 10px rgba(255,255,255,0.4); animation: shoot 1s linear forwards; z-index: 10; }
+        @keyframes shoot { 0% { top: 0; left: 0; transform: scale(0); opacity: 0; } 10% { opacity: 1; transform: scale(1.5); } 100% { top: 100vh; left: 100vw; transform: scale(0.1); opacity: 0; } }
+
+        /* The Crystallized Card (Glow Design) */
+        #card { 
+            display: none; width: 85%; max-width: 400px;
+            background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(25px); border-radius: 20px; border: 1px solid rgba(255,255,255,0.1);
+            padding: 30px 15px; text-align: center; box-shadow: 0 0 30px rgba(241,196,15,0.1);
+            animation: crystallize 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes crystallize { 0% { transform: scale(0.1); border-color: rgba(255,255,255,0.1); } 100% { transform: scale(1); border-color: #f1c40f; box-shadow: 0 0 40px #f1c40f; } }
+
+        h1 { font-size: 2.2rem; color: #a1c4fd; text-shadow: 0 0 15px rgba(161,196,253,0.8); margin: 10px 0; }
+        p { color: #ffffff; font-size: 1.1rem; line-height: 1.6; margin: 15px 0; font-style: italic; }
+
+        .music-btn { 
+            background: linear-gradient(90deg, #3498db, #8e44ad); border: none; padding: 12px 30px;
+            color: white; border-radius: 50px; font-weight: bold; cursor: pointer; box-shadow: 0 0 15px rgba(52,152,219,0.5); width: 100%; margin-top: 15px;
+        }
+
+        .floating-star { position: absolute; pointer-events: none; animation: floatUp 4s linear infinite; bottom: -50px; }
         @keyframes floatUp { to { transform: translateY(-110vh) rotate(360deg); opacity: 0; } }
     </style>
 </head>
-<body onclick="createSparkle(event)">
-    <div id="gift-container" onclick="openGift()">
-        <span class="box">🎁</span>
-        <div class="tap-text">NIDHI, OPEN YOUR SURPRISE!</div>
+<body onload="setupStars()">
+
+    <div id="sky"></div>
+
+    <div id="wish-container" onclick="makeAWish()">
+        <span class="wish-icon">💫</span>
+        <div class="wish-text">NIDHI, MAKE A WISH!</div>
     </div>
+
+    <div id="shooting-star"></div>
+
     <div id="card">
-        <div class="cake" onclick="blowCandle()">🎂</div>
-        <div class="friendship-tag">MOST SPECIAL PERSON ✅</div>
-        <h1>Happy Birthday, Nidhi!</h1>
-        <div class="quote-box" id="quotes">"Wishing you a day as sweet as you are!"</div>
-        <div class="stats-grid">
-            <div class="stat"><b>Secrets:</b> 100% Kept</div>
-            <div class="stat"><b>Smiles:</b> Unlimited</div>
-            <div class="stat"><b>Care:</b> Infinite</div>
-            <div class="stat"><b>Friendship:</b> Pure Gold</div>
-        </div>
-        <button class="music-btn" onclick="playMusic()">🎵 PLAY BIRTHDAY MUSIC 🎵</button>
+        <span style="font-size: 40px;">🎂</span>
+        <h1>Happy Birthday, Nidhi! ✨</h1>
+        <p>To my sweet friend Nidhi, wishing you a year as bright as your smile and as beautiful as your heart. Stay unique always!</p>
+        <button class="music-btn" onclick="playMusic()">🎵 Tap to Play Nidhi's Song 🎵</button>
     </div>
-    <audio id="song" preload="auto" loop>
-        <source src="https://www.chosic.com/wp-content/uploads/2021/04/Happy-Birthday-Funny-Song.mp3" type="audio/mpeg">
-    </audio>
+
+    <audio id="song" loop><source src="https://www.chosic.com/wp-content/uploads/2021/04/Happy-Birthday-Funny-Song.mp3"></audio>
+
     <script>
-        const quotes = ["You're wonderful, Nidhi! 🌸", "May your dreams come true! ✨", "To another year of joy! 🥂", "You are the best! ❤️"];
-        let qIdx = 0;
-        function openGift() { 
-            document.getElementById('gift-container').style.display = 'none'; 
-            document.getElementById('card').style.display = 'block'; 
-            setInterval(createFloating, 300); 
-            setInterval(() => { qIdx = (qIdx + 1) % quotes.length; document.getElementById('quotes').innerText = quotes[qIdx]; }, 3000); 
+        function setupStars() {
+            const sky = document.getElementById('sky');
+            for(let i=0; i<100; i++) {
+                const s = document.createElement('div');
+                s.className = 'star';
+                s.style.top = Math.random() * 100 + 'vh';
+                s.style.left = Math.random() * 100 + 'vw';
+                const size = Math.random() * 3 + 1;
+                s.style.width = size + 'px';
+                s.style.height = size + 'px';
+                s.style.animationDelay = Math.random() * 3 + 's';
+                sky.appendChild(s);
+            }
         }
-        function playMusic() { 
-            const audio = document.getElementById('song');
-            audio.play().then(() => { console.log("Music playing"); }).catch(e => { alert("Click again to play music!"); });
+
+        function makeAWish() {
+            document.getElementById('wish-container').style.display = 'none';
+            // Start the shooting star
+            document.getElementById('shooting-star').style.display = 'block';
+            // Landau the card after the shooting star animation
+            setTimeout(crystallizeCard, 1000);
         }
-        function blowCandle() { alert("Make a wish, Nidhi! 🌠"); }
-        function createFloating() { const el = document.createElement('div'); el.classList.add('floating'); el.innerHTML = '🌸'; el.style.left = Math.random() * 100 + 'vw'; el.style.animationDuration = (Math.random() * 2 + 3) + 's'; document.body.appendChild(el); setTimeout(() => el.remove(), 5000); }
-        function createSparkle(e) { const s = document.createElement('div'); s.innerHTML = '✨'; s.style.position = 'absolute'; s.style.left = e.pageX + 'px'; s.style.top = e.pageY + 'px'; s.style.pointerEvents = 'none'; document.body.appendChild(s); setTimeout(() => s.remove(), 800); }
+
+        function crystallizeCard() {
+            document.getElementById('shooting-star').style.display = 'none';
+            document.getElementById('card').style.display = 'block';
+            // Explode stars
+            for(let i=0; i<30; i++) { setTimeout(createFloatingStar, i * 50); }
+            setInterval(createFloatingStar, 400);
+        }
+
+        function playMusic() { document.getElementById('song').play(); alert("Nidhi's Song Playing! 🎶"); }
+
+        function createFloatingStar() {
+            const el = document.createElement('div'); el.classList.add('floating-star');
+            el.innerHTML = ['✨','💫','🌟','❤️'][Math.floor(Math.random()*4)];
+            el.style.left = Math.random() * 100 + 'vw';
+            el.style.fontSize = (Math.random() * 15 + 15) + 'px';
+            el.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            document.body.appendChild(el); setTimeout(() => el.remove(), 5000);
+        }
     </script>
 </body>
 </html>
