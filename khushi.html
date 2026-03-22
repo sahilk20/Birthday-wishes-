@@ -2,96 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Make a Wish, Khushi!</title>
     <style>
-        body { margin: 0; padding: 0; background: #0b0d17; color: white; height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; font-family: 'Arial', sans-serif; }
-        
-        /* Candle UI */
-        #candle-container { text-align: center; cursor: pointer; user-select: none; -webkit-user-select: none; }
+        body { margin: 0; padding: 0; background: #0b0d17; color: white; height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; font-family: 'Arial', sans-serif; touch-action: manipulation; }
+        #candle-section { text-align: center; user-select: none; -webkit-user-select: none; }
         .candle { font-size: 80px; position: relative; display: inline-block; }
-        .flame { 
-            position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
-            font-size: 40px; animation: flicker 0.1s infinite alternate; 
-        }
-        @keyframes flicker { 0% { opacity: 0.8; transform: translateX(-50%) scale(1); } 100% { opacity: 1; transform: translateX(-50%) scale(1.1); } }
-        
-        .instruction { margin-top: 20px; font-size: 1.1rem; color: #ff9a9e; animation: blink 1.5s infinite; letter-spacing: 1px; }
+        .flame { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); font-size: 45px; animation: flicker 0.1s infinite alternate; }
+        @keyframes flicker { 0% { opacity: 0.8; transform: translateX(-50%) scale(1); } 100% { opacity: 1; transform: translateX(-50%) scale(1.2); } }
+        .hint { margin-top: 25px; font-size: 1.1rem; color: #ff9a9e; animation: blink 1.5s infinite; font-weight: bold; }
         @keyframes blink { 50% { opacity: 0.2; } }
-
-        /* The Card (Hidden) */
-        #card { 
-            display: none; width: 85%; background: rgba(255, 255, 255, 0.05); 
-            backdrop-filter: blur(15px); border-radius: 30px; border: 1px solid rgba(255,255,255,0.2);
-            padding: 30px 15px; text-align: center; box-shadow: 0 0 40px rgba(0,0,0,0.8);
-            animation: zoomIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        @keyframes zoomIn { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
-
-        h1 { color: #ff9a9e; font-size: 2rem; text-shadow: 0 0 10px #ff9a9e; }
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
-        .stat { background: rgba(255,255,255,0.1); padding: 10px; border-radius: 15px; font-size: 0.8rem; }
-        .music-btn { background: #ff4d4d; border: none; padding: 12px 25px; color: white; border-radius: 50px; font-weight: bold; margin-top: 10px; box-shadow: 0 0 15px rgba(255,77,77,0.5); }
-        .floating { position: absolute; pointer-events: none; animation: floatUp 4s linear infinite; bottom: -50px; z-index: -1; }
-        @keyframes floatUp { to { transform: translateY(-110vh) rotate(360deg); opacity: 0; } }
+        #card { display: none; width: 88%; background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(20px); border-radius: 30px; border: 1px solid rgba(255,255,255,0.2); padding: 30px 15px; text-align: center; box-shadow: 0 0 50px rgba(0,0,0,0.9); animation: pop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes pop { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
+        h1 { color: #ff9a9e; font-size: 2rem; text-shadow: 0 0 15px #ff9a9e; }
+        .stat-box { background: rgba(255,255,255,0.1); padding: 12px; border-radius: 15px; font-size: 0.85rem; margin: 5px; }
+        .btn { background: #ff4d4d; border: none; padding: 15px 30px; color: white; border-radius: 50px; font-weight: bold; margin-top: 15px; box-shadow: 0 0 20px rgba(255,77,77,0.6); width: 100%; cursor: pointer; }
+        .heart { position: absolute; pointer-events: none; animation: fly 4s linear infinite; bottom: -50px; }
+        @keyframes fly { to { transform: translateY(-115vh) rotate(360deg); opacity: 0; } }
     </style>
 </head>
-<body onclick="createSparkle(event)">
-
-    <div id="candle-container" onmousedown="startBlow()" onmouseup="stopBlow()" ontouchstart="startBlow()" ontouchend="stopBlow()">
-        <div class="candle">
-            <span id="flame" class="flame">🔥</span>
-            🕯️
-        </div>
-        <div class="instruction">HOLD TO BLOW CANDLE & WISH</div>
+<body>
+    <div id="candle-section" onmousedown="blow()" ontouchstart="blow()" onmouseup="stop()" ontouchend="stop()">
+        <div class="candle"><span id="flame" class="flame">🔥</span>🕯️</div>
+        <div class="hint">HOLD FINGER ON FLAME TO BLOW OUT!</div>
     </div>
-
     <div id="card">
         <h1>Happy Birthday, Khushi! 🎂</h1>
-        <div class="stats-grid">
-            <div class="stat"><b>Secrets:</b> 100% Safe</div>
-            <div class="stat"><b>Joy:</b> Unlimited</div>
-            <div class="stat"><b>Vibes:</b> 10/10</div>
-            <div class="stat"><b>Friendship:</b> Forever</div>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+            <div class="stat-box"><b>Secrets:</b> 100% Safe</div>
+            <div class="stat-box"><b>Vibes:</b> 10/10</div>
+            <div class="stat-box"><b>Friendship:</b> Forever</div>
         </div>
-        <button class="music-btn" onclick="playMusic()">🎵 PLAY BIRTHDAY MUSIC 🎵</button>
+        <button class="btn" onclick="play()">🎵 PLAY MUSIC 🎵</button>
     </div>
-
-    <audio id="song" loop><source src="https://www.chosic.com/wp-content/uploads/2021/04/Happy-Birthday-Funny-Song.mp3"></audio>
-
+    <audio id="m" loop><source src="https://www.chosic.com/wp-content/uploads/2021/04/Happy-Birthday-Funny-Song.mp3"></audio>
     <script>
-        let blowTimer;
-        function startBlow() {
-            // If they hold for 1.5 seconds, the candle "blows out"
-            blowTimer = setTimeout(() => {
-                document.getElementById('flame').style.display = 'none';
-                setTimeout(openCard, 500);
-            }, 1200);
-        }
-
-        function stopBlow() { clearTimeout(blowTimer); }
-
-        function openCard() {
-            document.getElementById('candle-container').style.display = 'none';
-            document.getElementById('card').style.display = 'block';
-            setInterval(createFloating, 300);
-        }
-
-        function playMusic() { document.getElementById('song').play(); }
-        
-        function createFloating() {
-            const el = document.createElement('div'); el.classList.add('floating');
-            el.innerHTML = '❤️'; el.style.left = Math.random() * 100 + 'vw';
-            el.style.animationDuration = (Math.random() * 2 + 3) + 's';
-            document.body.appendChild(el); setTimeout(() => el.remove(), 5000);
-        }
-
-        function createSparkle(e) {
-            const s = document.createElement('div'); s.innerHTML = '✨';
-            s.style.position = 'absolute'; s.style.left = e.pageX + 'px';
-            s.style.top = e.pageY + 'px'; s.style.pointerEvents = 'none';
-            document.body.appendChild(s); setTimeout(() => s.remove(), 800);
-        }
+        let t; function blow() { t = setTimeout(() => { document.getElementById('flame').style.display='none'; setTimeout(() => { document.getElementById('candle-section').style.display='none'; document.getElementById('card').style.display='block'; setInterval(heart, 300); }, 600); }, 1200); }
+        function stop() { clearTimeout(t); }
+        function play() { document.getElementById('m').play(); }
+        function heart() { const h = document.createElement('div'); h.className='heart'; h.innerHTML='❤️'; h.style.left=Math.random()*100+'vw'; h.style.animationDuration=(Math.random()*2+3)+'s'; document.body.appendChild(h); setTimeout(()=>h.remove(), 5000); }
     </script>
 </body>
 </html>
